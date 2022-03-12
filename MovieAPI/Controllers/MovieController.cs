@@ -29,13 +29,10 @@ namespace MovieAPI.Controllers
             return Movies;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public Movie GetMovieById(int id)
         {
-            if (Movies.Any(x => x.Id == id))
-                return Movies.FirstOrDefault(x => x.Id == id);
-            else
-                return null;
+            return Movies.FirstOrDefault(x => x.Id == id);
         }
     }
 }
