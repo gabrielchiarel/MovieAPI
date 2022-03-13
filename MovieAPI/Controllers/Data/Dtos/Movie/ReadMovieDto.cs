@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace MovieAPI.Models
+namespace MovieAPI.Controllers.Data.Dtos
 {
-    public class Movie
+    public class ReadMovieDto
     {
         [Key, Required]
         public int Id { get; set; }
@@ -19,7 +20,6 @@ namespace MovieAPI.Models
         [Range(1, 600, ErrorMessage = "Range 1 to 600")]
         public int Duration { get; set; }
         public int AgeRating { get; set; }
-        public int AdressId { get; set; }
-        public Adress Adress { get; set; }
+        public DateTime ReadTime { get; set; } 
     }
 }
