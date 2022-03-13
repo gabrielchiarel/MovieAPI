@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieAPI.Controllers.Data;
 using MovieAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,78 @@ namespace MovieAPI.Controllers
     [Route("[controller]")]
     public class MovieController : ControllerBase
     {
-        private static List<Movie> Movies = new();
-        private static int Id = 1;
+        private MovieContext _context;
+
+        public MovieController(MovieContext context)
+        {
+            _context = context;
+        }
 
         [HttpPost]
-        public void AddMovie([FromBody]Movie movie)
+        public IActionResult AddMovie([FromBody]Movie movie)
         {
-            movie.Id = Id++;
-            
-            Movies.Add(movie);
+            _context.Movies.Add(movie);
 
-            Console.WriteLine(movie.Title);
+            _context.SaveChanges();
+
+            //show which endpoint returns the movie that was newly created
+            return CreatedAtAction(nameof(GetMovieById), new { Id = movie.Id }, movie);
         }
 
         [HttpGet]
         public IEnumerable<Movie> GetMovies()
         {
-            return Movies;
+            return _context.Movies;
         }
 
         [HttpGet("{id}")]
-        public Movie GetMovieById(int id)
+        public IActionResult GetMovieById(int id)
         {
-            return Movies.FirstOrDefault(x => x.Id == id);
+            Movie movie = GetContextMovieById(id);
+            if (movie != null)
+                return Ok(movie);
+
+            return NotFound();
+        }
+        
+        [HttpPut("{id}")]
+        public IActionResult UpdateMovie([FromBody] Movie newMovie, int id)
+        {
+            Movie movie = GetContextMovieById(id);
+            if (movie != null)
+            {
+                movie.Title = newMovie.Title;
+                movie.Director = newMovie.Director;
+                movie.Duration = newMovie.Duration;
+                movie.Gender = newMovie.Gender;
+
+                _context.SaveChanges();
+
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteMovie(int id)
+        {
+            Movie movie = _context.Movies.FirstOrDefault(x => x.Id == id);
+            if (movie != null)
+            {
+                _context.Movies.Remove(movie);
+
+                _context.SaveChanges();
+
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
+        Movie GetContextMovieById(int id)
+        {
+            return _context.Movies.FirstOrDefault(x => x.Id == id);
         }
     }
 }
