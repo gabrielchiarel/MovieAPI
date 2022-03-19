@@ -20,6 +20,5 @@ namespace MovieAPI.Controllers.Data.Dtos
         [Range(1, 600, ErrorMessage = "Range 1 to 600")]
         public int Duration { get; set; }
         public int AgeRating { get; set; }
-        public DateTime ReadTime { get; set; } 
     }
 }

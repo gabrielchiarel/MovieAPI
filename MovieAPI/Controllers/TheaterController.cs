@@ -25,7 +25,7 @@ namespace MovieAPI.Controllers
         [HttpPost]
         public IActionResult AddTheater([FromBody]CreateTheaterDto theaterDto)
         {
-            Theater theater = _mapper.Map<Theater>(theaterDto);
+            var theater = _mapper.Map<Theater>(theaterDto);
 
             _context.Theaters.Add(theater);
 

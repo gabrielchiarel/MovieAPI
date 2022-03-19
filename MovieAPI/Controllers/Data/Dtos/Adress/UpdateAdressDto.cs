@@ -2,7 +2,7 @@
 
 namespace MovieAPI.Controllers.Data.Dtos
 {
-    public class UpdateAdressDto
+    public class UpdateAddressDto
     {
         public string PublicArea { get; set; }
         public string District { get; set; }

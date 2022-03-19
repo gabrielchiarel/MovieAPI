@@ -11,8 +11,17 @@ namespace MovieAPI.Controllers.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // Relationship 1:1
+            builder.Entity<Address>()
+                .HasOne(address => address.Theater)
+                .WithOne(theater => theater.Address)
+                .HasForeignKey<Theater>(theater => theater.AddressId);
+        }
+
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Theater> Theaters { get; set; }
-        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 }

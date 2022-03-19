@@ -8,8 +8,8 @@ namespace MovieAPI.Profiles
     {
         public TheaterProfile()
         {
-            CreateMap<CreateAdressDto, Theater>();
-            CreateMap<UpdateAdressDto, Theater>();
+            CreateMap<CreateTheaterDto, Theater>();
+            CreateMap<UpdateTheaterDto, Theater>();
             CreateMap<Theater, ReadTheaterDto>();
         }
     }

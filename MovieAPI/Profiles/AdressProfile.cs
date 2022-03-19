@@ -4,13 +4,13 @@ using MovieAPI.Models;
 
 namespace MovieAPI.Profiles
 {
-    public class AdressProfile : Profile
+    public class AddressProfile : Profile
     {
-        public AdressProfile()
+        public AddressProfile()
         {
-            CreateMap<CreateAdressDto, Adress>();
-            CreateMap<UpdateAdressDto, Adress>();
-            CreateMap<Adress, ReadAdressDto>();
+            CreateMap<CreateAddressDto, Address>();
+            CreateMap<UpdateAddressDto, Address>();
+            CreateMap<Address, ReadAddressDto>();
         }
     }
 }

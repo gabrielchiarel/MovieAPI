@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieAPI.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieAPI.Controllers.Data.Dtos
@@ -11,6 +12,6 @@ namespace MovieAPI.Controllers.Data.Dtos
         public string Name { get; set; }
         public int AddressId { get; set; }
         public int ManagerId { get; set; }
-        public DateTime ReadTime { get; set; } 
+        public virtual Address Address { get; set; }
     }
 }
