@@ -36,9 +36,22 @@ namespace MovieAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Theater> GetTheaters()
+        public IActionResult GetTheaters([FromQuery] string movieName = default)
         {
-            return _context.Theaters;
+            if (!(_context.Theaters?.Any() ?? false))
+                return NotFound();
+
+            List<Theater> theaters = _context.Theaters.Where(x =>
+                string.IsNullOrWhiteSpace(movieName)
+                ||
+                (
+                    x.Sessions != null
+                    && x.Sessions.Any(y => y.Movie != null && y.Movie.Title.ToLower().Contains(movieName.ToLower()))
+                )).ToList();
+            
+            var dtos = _mapper.Map<IEnumerable<ReadTheaterDto>>(theaters);
+
+            return Ok(dtos);
         }
 
         [HttpGet("{id}")]

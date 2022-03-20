@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MovieAPI.Models
 {
@@ -19,5 +21,8 @@ namespace MovieAPI.Models
         [Range(1, 600, ErrorMessage = "Range 1 to 600")]
         public int Duration { get; set; }
         public int AgeRating { get; set; }
+        [JsonIgnore]
+        public virtual List<Session> Sessions { get; set; }
+
     }
 }

@@ -12,6 +12,6 @@ namespace MovieAPI.Controllers.Data.Dtos
         public string Name { get; set; }
         public int AddressId { get; set; }
         public int ManagerId { get; set; }
-        public virtual Address Address { get; set; }
+        public Address Address { get; set; }
     }
 }

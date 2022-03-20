@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MovieAPI.Models
 {
@@ -14,5 +16,7 @@ namespace MovieAPI.Models
         public virtual Address Address { get; set; }
         public int ManagerId { get; set; }
         public virtual Manager Manager { get; set; }
+        [JsonIgnore]
+        public virtual List<Session> Sessions { get; set; }
     }
 }
